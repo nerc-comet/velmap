@@ -15,7 +15,7 @@
 %% 0. setup
 
 % input config file
-cfgfile = '/nfs/a285/homes/eearw/velmap_projects/configs/thesis_versions/zagros_test.conf';
+cfgfile = '/example/example.conf';
 
 % add path to functions
 addpath('main')
