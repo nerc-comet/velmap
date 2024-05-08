@@ -1,0 +1,55 @@
+function [out,hdr] = tif2pi(tiffile,outhdr)
+%===================================================================
+%function [] = tif2pi(tiffile,outhdr)
+% Function to convert geotiff file into PiRATE image/hdr format
+%
+% Inputs:
+%   tiffile: input tiff filename
+%   outhdr: output hdr (optional for multilook/crop image)
+%
+% Outputs:
+%   out: output image 
+%   hdr: output hdr
+%
+% Hua Wang, 6/12/2020
+%===================================================================
+
+%[out,R] = readgeoraster(tiffile, 'OutputType', 'single');  %only in v2020a
+%onwards
+[out,R]=geotiffread(tiffile); %older function
+
+% if cell registration, convert to postings
+if strcmp(R.RasterInterpretation,'cells')
+    disp('Tif is in cell format, converting to postings.')
+    dx = R.CellExtentInLongitude;
+    dy = R.CellExtentInLatitude;
+    latlim = [R.LatitudeLimits(1)+dy/2 georef.LatitudeLimits(2)-dy/2];
+    lonlim = [georef.LongitudeLimits(1)+dx/2 georef.LongitudeLimits(2)-dx/2];
+    rasterSize = georef.RasterSize;
+    georef = georefpostings(latlim,lonlim,rasterSize);
+end
+
+%convert R to hdr format
+hdr.width  = R.RasterSize(2);
+hdr.length = R.RasterSize(1);
+hdr.xfirst = R.LongitudeLimits(1);
+hdr.xstep  = R.SampleSpacingInLongitude;
+hdr.yfirst = R.LatitudeLimits(2);
+hdr.ystep  = -R.SampleSpacingInLatitude;
+%hdr.xlast = R.LongitudeLimits(2);
+%hdr.ylast = R.LatitudeLimits(1);
+
+hdr.xlast  = hdr.xfirst + (hdr.width-1)*hdr.xstep;
+hdr.ylast  = hdr.yfirst + (hdr.length-1)*hdr.ystep;
+
+origin=[hdr.xfirst,hdr.ylast];   %bottom-left corner
+llh=[hdr.xlast,hdr.yfirst];      %top-right corner
+xy=ll2utm(llh,origin);
+hdr.xpsize=abs(xy(1))/(hdr.width-1);
+hdr.ypsize=abs(xy(2))/(hdr.length-1);
+
+if nargin>1
+  out(out==0)=NaN; %replace zeros with NaN %TJW  
+  out=matcrop(out,hdr,outhdr);
+  hdr=outhdr;
+end
