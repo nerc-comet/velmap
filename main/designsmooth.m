@@ -29,11 +29,11 @@ ntri=size(trim.tri,1);
 nvtx=length(trim.x);
 
 %initial smooth matrix
-sm = zeros(nvtx,nvtx);
+sm = sparse(nvtx,nvtx);
 
 %boundary identify
 if boundsm==0
-  bound = zeros(nvtx,nvtx,'int8');
+  bound = sparse(nvtx,nvtx);
 end
 
 %make the distance matrix (symmetric matrix)
@@ -52,10 +52,26 @@ for i=1:ntri
     end
   end
 end
+%disp(sm)
+%disp(sum(sm,2))
+nz=find(sm);
+%disp(nz)
+%disp(nz(1:100))
+%disp(nz(end-100:end))
+%disp(size(sum(sm,2)))
+%disp(nvtx)
+%disp(sm(1:20,1:20))
+%disp(sm)
+%disp(mean(sm(nz)))
+%disp(median(sm(nz)))
+sm(nz) = mean(sm(nz));
+%disp(nnz(sum(sm,2)))
+%disp(size(sm))
+%pause
 
 %make smoothing factors for each nodes
 E=repmat(sum(sm,2),1,nvtx); %sum of the edges for each vertex, E in Desbrun et al., 1999
-nz=find(sm);                %non-zeros, diagonal components are still zeros here
+%non-zeros, diagonal components are still zeros here
 sm(nz)=2./sm(nz)./E(nz);    %off-diagonal components, (2/E)*(1/e_ij)
 smdiag=-sum(sm,2);          %diagonal components, -2/E*sum(1/e_ij) = -sum(2/E/e_ij)=-sum(sm,2);
 sm=sm+diag(smdiag);         %combine off-diagonal and diagonal components
@@ -66,6 +82,7 @@ if boundsm==0
   boundvtx=sum(bound==1,2);
   sm(boundvtx>0,:)=[];
 end
+sm = sparse(sm);
 
 %make the final smoothing matrix for E/N/U components
 ncomp=sum(invenu);
