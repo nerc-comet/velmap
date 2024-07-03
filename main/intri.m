@@ -41,10 +41,15 @@ if s0==0
   error('input wrong triangle');
 end
 
-s12 = 1/2. *abs(det([p  1; tri(1,:) 1; tri(2,:) 1]));
-s23 = 1/2. *abs(det([p  1; tri(2,:) 1; tri(3,:) 1]));
-s31 = 1/2. *abs(det([p  1; tri(3,:) 1; tri(1,:) 1]));
-s=s12+s23+s31;
+t1 = tri(1,:);
+t2 = tri(2,:);
+t3 = tri(3,:);
+
+s = 1/2. * (                         ...
+  (abs(det([p, 1; t1, 1; t2, 1]))) + ... % s12
+  (abs(det([p, 1; t2, 1; t3, 1]))) + ... % s23
+  (abs(det([p, 1; t3, 1; t1, 1])))   ... % s31
+);
 
 if s-s0<eps('single')
   pos=1;               %inside 
