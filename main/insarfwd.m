@@ -9,7 +9,7 @@ function [insarfit] = insarfwd(insar,trim,fitmodel,invenu,outdir,gps)
 %  trim:      triangular mesh
 %  fitmodel:  fitted velocity field
 %  invenu:    inversion parameters
-%  outdir:    output directory 
+%  outdir:    output directory
 %  gps:       gps observations (optional)
 %
 % OUTPUT:
@@ -39,7 +39,7 @@ k=invs*nvtx;   %start position of orb/atm parameters
 ninsar=length(insar);
 
 for i=1:ninsar
-    
+
   norbcoef=(insar(i).proc.orbdegree+1)*(insar(i).proc.orbdegree+2)/2;
 
   %find valid pixels
@@ -100,7 +100,7 @@ for i=1:ninsar
   hdr2rsc(insar(i).ifghdr,char(strcat(ioutdir,'ifg.rsc')));
 
   %-----------------------
-  %compare InSAR and GPS 
+  %compare InSAR and GPS
   %-----------------------
   fid=fopen(char(strcat(ioutdir,'gpsvsinsar.dat')),'w');
   for igf=1:ngf
@@ -132,7 +132,7 @@ for i=1:ninsar
         %project gps to los
         uvec=unitvec(mlos,mazi);
         if gpsdim==2%remove Up component for 2d GPS
-          uvec(3)=[]; 
+          uvec(3)=[];
         end
         gpslos=gpsinside(ig).vel*uvec';
         gpslos_sigma=sqrt(uvec*gpsinside(ig).vcm*uvec');
@@ -141,6 +141,6 @@ for i=1:ninsar
     end
   end
   fclose(fid);
-   
+
   j=j+nvalid;
 end
