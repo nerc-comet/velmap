@@ -19,7 +19,8 @@ function [par,gpspar,insarpar,smpar,tssmpar,profpar] = readparfile(cfgfile,legac
 %
 % Hua Wang @ Uni Leeds, 20/07/2008
 % Andrew Watson @ Leeds, 15/06/2021
-%                                                                  
+% Dehua Wang @ Leeds, 01/07/2023
+%
 % NOTE: use '#' for comments in config file, and ':' to seperate names and
 % values (e.g. inv_e:   1)
 %=================================================================
@@ -32,7 +33,7 @@ if ~isfile(cfgfile)
 end
 
 % load the config file as a cell array
-cfgcell = readcell(cfgfile,'FileType','text','CommentStyle','#');
+cfgcell = readcell(cfgfile,'FileType','text','CommentStyle','#','Delimiter',':');  % modified by Dehua Wang
 
 %% format setup from cell array to structure
 
