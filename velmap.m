@@ -15,7 +15,7 @@
 %% 0. setup
 
 % input config file
-cfgfile = '/example/example.conf';
+cfgfile = 'examples/ATF/ATF_gps_insar.conf';
 
 % add path to functions
 addpath('main')
