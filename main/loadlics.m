@@ -12,6 +12,7 @@ function [insar] = loadlics(insarpar)
 %
 % Hua Wang, 06/12/2020
 % Andrew Watson @ Leeds, 16/06/2021
+% Dehua Wang @ Leeds, 01/07/2023
 %
 % 16/06/2021 AW: updated to new insarpar structure
 % 16/07/2021 AW: added pass direction string to ifghdr
@@ -73,17 +74,17 @@ for i=insarpar.ninsarfile:-1:1
     fprintf('loading unit vectors ... \n');
     
     % east
-    namestruct=dir([insarpar.dir{i},'*E.geo.tif']);
+    namestruct=dir([insarpar.dir{i},'*geo.E.tif']);
     efile = [insarpar.dir{i} namestruct.name];
     [e]=tif2pi(efile,insar(i).ifghdr);
     
     % north
-    namestruct=dir([insarpar.dir{i},'*N.geo.tif']);
+    namestruct=dir([insarpar.dir{i},'*geo.N.tif']);
     nfile = [insarpar.dir{i} namestruct.name];
     [n]=tif2pi(nfile,insar(i).ifghdr);
     
     % up
-    namestruct=dir([insarpar.dir{i},'*U.geo.tif']);
+    namestruct=dir([insarpar.dir{i},'*geo.U.tif']);
     ufile = [insarpar.dir{i} namestruct.name];
     [u]=tif2pi(ufile,insar(i).ifghdr);
     
@@ -109,7 +110,7 @@ for i=insarpar.ninsarfile:-1:1
     if insar(i).proc.atmdegree~=0
         fprintf('loading dem data ... \n');
         %    demname=fullfile(insardir,dir(strcat(insardir,'*.geo.hgt.tif')).name);
-        namestruct=dir(string(strcat(insarpar.dir{i},'/*hgt.geo.tif')));
+        namestruct=dir(string(strcat(insarpar.dir{i},'/*geo.hgt.tif')));
         demname=sprintf("%s/%s", string(insarpar.dir{i}),namestruct.name);
         insar(i).proc.demfile=demname;
         [insar(i).dem]=tif2pi(demname,insar(i).ifghdr);
