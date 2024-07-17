@@ -143,6 +143,8 @@ for i=1:nsmf
     save([smfdir 'insarfit'],'insarfit','-v7.3');    
   end
 
+  save precrash.mat
+
   %% 8. strain rate
 
   % calculate strain rate
