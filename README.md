@@ -1,5 +1,5 @@
 # velmap
-An example has been added by Dehua Wang, and the datasets used in this example is a part of unpublished work of Dehua Wang. A detailed introduction about these datasets will be given after the paper is published. Please run this exmaple directly using velmap.m, and the results will be shown in examples/ATF/output.
+An example has been added by Dehua Wang, and the datasets used in this example is a part of unpublished work of Dehua Wang. A detailed introduction about these datasets will be given after the paper is published. Please run this exmaple directly using velmap.m, and the results will be shown in examples/ATF/output. 
 
 Please cite the following pair of papers. The first paper provides an original introduction to the VELMAP methodology, while the second paper includes an improvement regarding iterative weighting of GPS and InSAR.
 
