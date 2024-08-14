@@ -1,5 +1,9 @@
 # velmap
-An example has been added by Dehua Wang, and the datasets used in this example are parts of unpublished work of Dehua Wang. A detailed introduction about these datasets will be given after the paper is published. Please run this exmaple directly using velmap.m, and the results will be shown in examples/ATF/output. Due to the limitation of file size, InSAR data cannot be uploaded in github. For tests using both GPS and InSAR data, please contact Dehua Wang (E-mail: eedwa@leeds.ac.uk).
+An example has been added by Dehua Wang, and the datasets used in this example are from Wang et al. (2024):
+
+Wang, D., Elliott, J.R., Zheng, G., Wright, T.J., Watson, A.R., McGrath, J.D., 2024, Deciphering interseismic strain accumulation and its termination on the central-eastern Altyn Tagh fault from high-resolution velocity fields. Earth and Planetary Science Letters, 644. https://doi.org/10.1016/j.epsl.2024.118919.
+
+Please run this exmaple directly using velmap.m, and the results will be shown in examples/ATF/output. Due to the limitation of file size, InSAR data cannot be uploaded in github. For tests using both GPS and InSAR data, please contact Dehua Wang (E-mail: eedwa@leeds.ac.uk).
 
 Please cite the following pair of papers. The first paper provides an original introduction to the VELMAP methodology, while the second paper includes an improvement regarding iterative weighting of GPS and InSAR.
 
